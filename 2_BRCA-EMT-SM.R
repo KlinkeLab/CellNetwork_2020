@@ -1,0 +1,53 @@
+# Calculate values for Epithelial and Mesenchymal state metrics
+#library(MASS)
+setwd("~/Documents/Publications/BayesNetwork2/R")
+rm(list = ls())
+
+load(file = "./BRCA_TPM_HK.Rda")
+
+EMTsig <- read.table(file = "./EMT_BRCA.csv", sep = ",", head=TRUE, colClasses = c("character", "numeric", "factor"))
+
+#Epithelial signature
+# Changes SEPP1:SELENOP, C1orf106:INAVA
+
+Esig <- EMTsig[EMTsig$State == "E",]
+
+RNAseq.E <- TCGA.RNAseq.HK[match(Esig$GENE_SYMBOL, row.names(TCGA.RNAseq.HK)), ]
+
+E.thresh <- kmeans(t(log2(RNAseq.E + 0.03)), centers = 2)$centers
+E.thresh2 <- apply(E.thresh, 2, mean)
+
+#Check to see that Ki's are the same
+plot(E.thresh2, Esig$Ki_log2_TPM)
+lines(c(-2,8), c(-2,8))
+
+EBrCa <- rep(0, dim(RNAseq.E)[2])
+for (i in 1:dim(RNAseq.E)[2])
+{
+  EBrCa[i] <- mean(RNAseq.E[,i]/(RNAseq.E[,i] + 2^E.thresh2), na.rm = TRUE)
+}
+
+# Mesenchymal signature
+# change C7orf10:SUGCT, LEPRE1:P3H1, LHFP:LHFPL6
+
+Msig <- EMTsig[EMTsig$State == "M",]
+
+RNAseq.M <- TCGA.RNAseq.HK[match(Msig$GENE_SYMBOL, row.names(TCGA.RNAseq.HK)), ]
+
+M.thresh <- kmeans(t(log2(RNAseq.M + 0.03)), centers = 2)$centers
+M.thresh2 <- apply(M.thresh, 2, mean)
+
+#Check to see that Ki's are the same
+plot(M.thresh2, Msig$Ki_log2_TPM)
+lines(c(-2,8), c(-2,8))
+
+MBrCa <- rep(0, dim(RNAseq.M)[2])
+for (i in 1:dim(RNAseq.M)[2])
+{
+  MBrCa[i] <- mean(RNAseq.M[,i]/(RNAseq.M[,i] + 2^M.thresh2), na.rm = TRUE)
+}
+
+#Combine Epithelial and Mesenchymal genes for each sample
+
+BrCa_State <- data.frame(TCGAName = colnames(RNAseq.M), Epithelial = EBrCa, Mesenchymal = MBrCa, CCN4 = log2(as.numeric(RNAseq.M["WISP1",]) + 0.001))
+write.csv(BrCa_State, file = "./BRCA-EMT-SM.csv")
