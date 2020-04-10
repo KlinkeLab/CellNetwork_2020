@@ -81,7 +81,7 @@ plot(SCALE.HK, type = "p", col = ColorDot)
 TCGA.RNAseq.HK <- TCGA.RNAseq.dat
 for (i in 1:ncol(TCGA.RNAseq.dat))
 {
-  TCGA.RNAseq.HK[,i] <- TCGA.RNAseq.dat[,i] * SCALE.HK[i]
+  TCGA.RNAseq.HK[,i] <- TCGA.RNAseq.dat[,i] / SCALE.HK[i]
 }  
 
 # Save Gene Expression matrix as an R data file and save it as a flat text file that will be used in CIBERSORTx
