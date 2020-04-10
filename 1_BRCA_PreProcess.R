@@ -16,9 +16,9 @@ seq.brca <- GDCprepare(query = query.seq, save = TRUE, save.filename = "brca-RNA
 
 # This was the original annotation file used for aligning the reads
 # data: https://github.com/KlinkeLab/DigitalCytometry_EMT_2020/blob/master/Files/gencode.gene.info.v22.tsv
-GeneInfo <- read.table(file = "~/gencode.gene.info.v22.tsv", sep = "\t", head=TRUE, colClasses = c("character", "character"))
+GeneInfo <- read.table(file = "./gencode.gene.info.v22.tsv", sep = "\t", head=TRUE, colClasses = c("character", "character"))
 
-load("~/Documents/Projects/TCGA/R/brca-RNAseq-Counts.rda")
+load("./brca-RNAseq-Counts.rda")
 seq.brca <- data
 
 seqRes <- assay(seq.brca)
@@ -48,7 +48,7 @@ save(TPM, file = "BRCA_TPM.Rda")
 as.data.frame(TPM)
 
 # Now normalize to housekeeping genes
-load("~/BRCA_TPM.Rda")
+load("./BRCA_TPM.Rda")
 KeepRow <- apply(TPM, 1, function(x) sum(x) != 0)
 
 # Remove outliers based on EMT genes (all normal), metastatic samples, and outliers based on HK genes (all tumor)
@@ -65,7 +65,7 @@ KeepSample <- !(colnames(TPM) %in% RejS)
 TCGA.RNAseq.dat <- TPM[KeepRow, KeepSample]
 
 # Housekeeping gene scaling
-HKGenes <- read.table("~/HousekeepingGenes-PMID23810203.txt", strip.white = TRUE, head=FALSE, sep = "\t", colClasses = c("character"))
+HKGenes <- read.table("./HousekeepingGenes-PMID23810203.txt", strip.white = TRUE, head=FALSE, sep = "\t", colClasses = c("character"))
 
 #TCGA.RNAseq.dat <- tmp[match(HKGenes$V1, rownames(tmp), nomatch = 0),]
 
@@ -85,5 +85,5 @@ for (i in 1:ncol(TCGA.RNAseq.dat))
 }  
 
 # Save Gene Expression matrix as an R data file and save it as a flat text file that will be used in CIBERSORTx
-save(TCGA.RNAseq.HK, file = "~/BRCA_TPM_HK.Rda")
-write.table(TCGA.RNAseq.HK, file = "~/BRCA_RNAseq_HK.txt", sep = "\t", row.names=TRUE)
+save(TCGA.RNAseq.HK, file = "./BRCA_TPM_HK.Rda")
+write.table(TCGA.RNAseq.HK, file = "./BRCA_RNAseq_HK.txt", sep = "\t", row.names=TRUE)
