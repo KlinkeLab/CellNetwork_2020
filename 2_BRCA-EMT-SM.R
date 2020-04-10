@@ -1,5 +1,4 @@
 # Calculate values for Epithelial and Mesenchymal state metrics
-#library(MASS)
 setwd("~/Documents/Publications/BayesNetwork2/R")
 rm(list = ls())
 
