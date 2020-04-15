@@ -1,6 +1,6 @@
-# **An unsupervised  melanoma**
+# **Data-driven learning how oncogenic gene expression locally alters heterocellular networks**
 
-This repository supplies the code developed in the study of D.J. Klinke, A. Fernandez, and W. Deng **_"An melanoma"_**. The corresponding pre-print can be found on bioRxiv ( doi: https://doi.org/10.1101/8XXXXXX9 ). It can be used to reproduce the results of the study and investigate the methodology to be used for other datasets.
+This repository supplies the code developed in the study of D.J. Klinke, A. Fernandez, W. Deng, and A.C. Pirkey **_"Data-driven learning how oncogenic gene expression locally alters heterocellular networks"_**. The corresponding pre-print can be found on bioRxiv ( doi: https://doi.org/10.1101/8XXXXXX9 ). It can be used to reproduce the results of the study and investigate the methodology to be used for other datasets.
 
 ## **Requirements**
 
@@ -19,8 +19,8 @@ To reproduce the results, download the relevant script and data and load the cor
 
 # General notes
 
-The code provided in this repository reproduces the main results of the study of D.J. Klinke, A. Fernandez and W. Deng **_"An unsupervised melanoma"_** but it is not meant as a self-contained module for use in further analysis.
+The code provided in this repository reproduces the main results of the study of D.J. Klinke, A. Fernandez, W. Deng and A.C. Pirkey **_"Data-driven learning how oncogenic gene expression locally alters heterocellular networks"_** but it is not meant as a self-contained module for use in further analysis.
 
 ## Citation
 
-Klinke, D.J., Fernandez, A., & Deng, W. **_"An unsupervised f and melanoma."_** bioAxiv (2020). [https://doi.org/10.1101/8XXXXX9]
+Klinke, D.J., Fernandez, A., Deng, W., & Pirkey, A.C.,  **_"Data-driven learning how oncogenic gene expression locally alters heterocellular networks."_** bioAxiv (2020). [https://doi.org/10.1101/8XXXXX9]
