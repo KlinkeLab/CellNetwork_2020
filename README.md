@@ -5,7 +5,7 @@ This repository supplies the code developed in the study of D.J. Klinke, A. Fern
 ## **Requirements**
 
 * R version 3.6.2.
-* R libraries: glmnet, caret, tidyverse, colorspace, MASS, bnlearn
+* R libraries: SummarizedExperiment, TCGAbiolinks
 
 ## **Data**
 
