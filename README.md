@@ -5,7 +5,7 @@ This repository supplies the code developed in the study of D.J. Klinke, A. Fern
 ## **Requirements**
 
 * R version 3.6.2.
-* R libraries: SummarizedExperiment, TCGAbiolinks
+* R libraries: SummarizedExperiment, TCGAbiolinks, colorspace, MASS
 
 ## **Data**
 
