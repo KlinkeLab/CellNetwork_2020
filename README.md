@@ -4,12 +4,12 @@ This repository supplies the code developed in the study of D.J. Klinke, A. Fern
 
 ## **Requirements**
 
-* R version 3.6.2.
+* R version 3.6.3.
 * R libraries: SummarizedExperiment, TCGAbiolinks, colorspace, MASS, bnlearn, BiocManager, Rgraphviz, parallel, stats, lattice
 
 ## **Data**
 
-All necessary data is provided in the "Files" folder of the repository or linkes to public data have been provided in the scripts.
+All necessary data is provided via links to public data provided in the scripts.
 
 For more information about data used in this study please refer to [https://portal.gdc.cancer.gov] for Files: the breast cancer (BRCA) and Skin Cutaneous Melanoma (SKCM) arms of the Cancer Genome Atlas downloaded via `TCGAbiolinks' (V package in R accessed 6/27/2017; and [https://www.ncbi.nlm.nih.gov] entry GSE98394.
 
