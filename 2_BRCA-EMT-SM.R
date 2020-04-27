@@ -7,7 +7,7 @@ load(file = "./BRCA_TPM_HK.Rda")
 EMTsig <- read.table(file = "./EMT_BRCA.csv", sep = ",", head=TRUE, colClasses = c("character", "numeric", "factor"))
 
 #Epithelial signature
-# Changes SEPP1:SELENOP, C1orf106:INAVA
+# Changing the following gene symbols in the .csv file may be needed -> SEPP1:SELENOP, C1orf106:INAVA
 
 Esig <- EMTsig[EMTsig$State == "E",]
 
@@ -27,7 +27,7 @@ for (i in 1:dim(RNAseq.E)[2])
 }
 
 # Mesenchymal signature
-# change C7orf10:SUGCT, LEPRE1:P3H1, LHFP:LHFPL6
+# Changing the following gene symbols in the .csv file may be needed -> C7orf10:SUGCT, LEPRE1:P3H1, LHFP:LHFPL6, WISP1:CCN4
 
 Msig <- EMTsig[EMTsig$State == "M",]
 
@@ -47,6 +47,6 @@ for (i in 1:dim(RNAseq.M)[2])
 }
 
 #Combine Epithelial and Mesenchymal genes for each sample
-
+# If you changed WISP1 to CCN4 in the .csv, "WISP1" to "CCN4" in line 51 as well.
 BrCa_State <- data.frame(TCGAName = colnames(RNAseq.M), Epithelial = EBrCa, Mesenchymal = MBrCa, CCN4 = log2(as.numeric(RNAseq.M["WISP1",]) + 0.001))
 write.csv(BrCa_State, file = "./BRCA-EMT-SM.csv")
