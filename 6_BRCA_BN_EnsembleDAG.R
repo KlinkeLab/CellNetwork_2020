@@ -13,11 +13,13 @@ cl = makeCluster(6, type = "SOCK")
 rand = clusterEvalQ(cl, runif(10))
 
 # Taking ensemble DAG
-file <- "BRCA_digitalcytometry_tot_noise"
-test <- read.csv(paste("./", file, ".csv", sep = ""), head = TRUE)
+fileName <- "BRCA_digitalcytometry_tot_noise"
+test <- read.csv(paste("./", fileName, ".csv", sep = ""), head = TRUE)
 
-DM <- c("Cancer", "Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells_lg", "Macrophages_sc_lg", 
-        "CD4Tcell_sc_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
+Outfile <- "BRCA_CIBERSORT_NKsubset"
+
+DM <- c("Cancer", "CD4Tcell_sc_lg", "Neutrophils_lg", "Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
+        "B.cells.naive_lg", "proliferation", "Epithelial", "Mesenchymal", 
         "CCN4", "pM0", "pM1", "pM2")
 
 test2 <- test[, DM]
@@ -25,7 +27,7 @@ test2$Cancer <- as.numeric(test$Cancer)
 
 test2 <- test2[complete.cases(test2),]
 
-tmp <- discretize(test2, method = "interval", breaks = c(2,rep(15,15)))
+tmp <- discretize(test2, method = "interval", breaks = c(2,rep(15,16)))
 dtest2 <- as.data.frame(lapply(tmp, function(x) (as.numeric(x) - 1)/max(as.numeric(x) -1)))
 
 BRCA2 <- dtest2
@@ -38,43 +40,42 @@ rownames(corrcoef) <- colnames(dtest2)
 # Only arcs into CD4 T cells as number of zeros is high
 # Only arcs into Neutrophils as number of zeros is high
 
-CCN4black = data.frame(from = c("Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells_lg", "Macrophages_sc_lg", 
+CCN4black = data.frame(from = c("Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
                                 "CD4Tcell_sc_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
                                 "CCN4", "pM0", "pM1", "pM2", 
-                                "Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells_lg", "Macrophages_sc_lg", 
+                                "Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
                                 "CD4Tcell_sc_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
-                                "pM0", "pM1", "pM2", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg",
+                                "pM0", "pM1", "pM2", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg",
                                 "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg",
-                                "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", 
+                                "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", 
                                 "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", 
                                 "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", 
-                                "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", 
+                                "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", 
                                 "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg", 
                                 "Neutrophils_lg", "Neutrophils_lg", "Neutrophils_lg"), 
-                       to = c("Cancer", "Cancer", "Cancer", "Cancer", "Cancer", 
+                       to = c("Cancer", "Cancer", "Cancer", "Cancer", "Cancer", "Cancer", 
                               "Cancer", "Cancer", "Cancer", "Cancer", "Cancer", 
                               "Cancer", "Cancer", "Cancer", "Cancer", "Cancer",  
+                              "CCN4", "CCN4", "CCN4", "CCN4", "CCN4", "CCN4", 
                               "CCN4", "CCN4", "CCN4", "CCN4", "CCN4", 
-                              "CCN4", "CCN4", "CCN4", "CCN4", "CCN4", 
-                              "CCN4", "CCN4", "CCN4", "CCN4", "Endothelial.cells_lg", "CAF_lg", "NK.cells_lg", "Macrophages_sc_lg", 
+                              "CCN4", "CCN4", "CCN4", "CCN4", "Endothelial.cells_lg", "CAF_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
                               "CD4Tcell_sc_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
-                              "pM0", "pM1", "pM2", "Endothelial.cells_lg", "CAF_lg", "NK.cells_lg", "Macrophages_sc_lg", 
+                              "pM0", "pM1", "pM2", "Endothelial.cells_lg", "CAF_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
                               "T.cells.CD8_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
-                              "pM0", "pM1", "pM2", "Endothelial.cells_lg", "CAF_lg", "NK.cells_lg", "Macrophages_sc_lg", 
+                              "pM0", "pM1", "pM2", "Endothelial.cells_lg", "CAF_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
                               "T.cells.CD8_lg", "B.cells.naive_lg", "CD4Tcell_sc_lg", "proliferation", "Epithelial", "Mesenchymal", 
                               "pM0", "pM1", "pM2"))
 
 CCN4white = data.frame(from = c("CCN4", "pM0", "pM0", "Mesenchymal", "Cancer", 
-                                "B.cells.naive_lg", "Cancer", "pM1", "Macrophages_sc_lg", "Macrophages_sc_lg", 
-                                "CAF_lg", "Cancer", "Cancer", "Endothelial.cells_lg", "B.cells.naive_lg", 
-                                "Cancer", "pM1", "Cancer", "pM2", "Cancer", 
-                                "CCN4", "Cancer", "CCN4"),
-                          to = c("Mesenchymal", "pM2", "pM1", "CAF_lg", "CCN4", 
-                                 "T.cells.CD8_lg", "Epithelial", "T.cells.CD8_lg", "T.cells.CD8_lg", "CD4Tcell_sc_lg", 
-                                 "T.cells.CD8_lg", "Endothelial.cells_lg", "proliferation", "CD4Tcell_sc_lg", "CD4Tcell_sc_lg", 
-                                 "pM2", "CAF_lg", "Mesenchymal", "Neutrophils_lg", "pM1", 
-                                 "NK.cells_lg", "B.cells.naive_lg", "Macrophages_sc_lg"))
-
+                                "NK.cells.active_lg", "B.cells.naive_lg", "Cancer", "Macrophages_sc_lg", "pM1", 
+                                "Macrophages_sc_lg", "CAF_lg", "Cancer", "Cancer", "Endothelial.cells_lg", 
+                                "B.cells.naive_lg", "Cancer", "pM1", "Cancer", "NK.cells.rest_lg", 
+                                "Cancer", "Cancer", "CCN4", "Cancer", "CCN4"),
+                          to = c("Mesenchymal", "pM1", "pM2", "CAF_lg", "CCN4", 
+                                 "NK.cells.rest_lg", "T.cells.CD8_lg", "Epithelial", "CD4Tcell_sc_lg", "T.cells.CD8_lg", 
+                                 "T.cells.CD8_lg", "T.cells.CD8_lg", "proliferation", "Endothelial.cells_lg", "CD4Tcell_sc_lg", 
+                                 "CD4Tcell_sc_lg", "pM2", "CAF_lg", "Mesenchymal", "T.cells.CD8_lg", 
+                                 "pM1", "B.cells.naive_lg", "Macrophages_sc_lg", "NK.cells.rest_lg", "NK.cells.active_lg"))
 
 nboot = 10000 
 arstr <- boot.strength(dtest2, R = nboot, algorithm = "mmhc", cluster = cl, algorithm.args = list(whitelist = CCN4white, blacklist = CCN4black))
@@ -97,13 +98,14 @@ strength.plot(an.BRCA, BRCA_str, shape = "ellipse", highlight = list(arcs = HLar
 
 #Need to include whether the particular edge included in the network has a negative or a positive correlation
 # While this is correct normally, ultimately you should look at the sign of the appropriate term in the linear model (fBRCABN)
-write.csv(cbind(BRCA_str, CorSign), paste(file, "Bootstrap", nboot, "_mmhc_Hybrid_Merge.csv", sep = ' '), row.names=FALSE)
+write.csv(cbind(BRCA_str, CorSign), paste(Outfile, "_mmhc_Hybrid_Merge.csv", sep = ''), row.names=FALSE)
 
 # stop the cluster when we are done
 stopCluster(cl)
 
-pdf("BRCA-ModelvsData-hybrid-April20.pdf", width = 11, height = 6)
+pdf("BRCA-ModelvsData-hybrid.pdf", width = 11, height = 6)
 par(mfrow = c(1, 2), mar = c(5, 4, 4, 2) + 0.1)
+
 #Comparison plots between BN model and data
 # BRCA CCN4 vs CD8 T cells
 sim = cpdist(fBRCABN, nodes = c("CCN4", "T.cells.CD8_lg"), n = 10^5, evidence = (Cancer > 0.85))
@@ -134,7 +136,6 @@ points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$T.cells.CD8
 
 
 ########################
-
 # BRCA CCN4 vs CD4 T cells
 sim = cpdist(fBRCABN, nodes = c("CCN4", "CD4Tcell_sc_lg"), n = 10^4, evidence = (Cancer > 0.85))
 ColSim <- densCols(x = sim$CCN4, y = sim$CD4Tcell_sc_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
@@ -162,37 +163,65 @@ points( (test2$CCN4[test2$Cancer == 1] - minX)/(maxX - minX), (test2$CD4Tcell_sc
 points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$CD4Tcell_sc_lg[test2$Cancer == 0] - minY)/(maxY - minY), pch = 19, col = "black")
 
 #################
+# BRCA CCN4 vs active NK cells
+sim = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells.active_lg"), n = 10^5, evidence = (Cancer > 0.85))
+ColSim <- densCols(x = sim$CCN4, y = sim$NK.cells.active_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
-# BRCA CCN4 vs NK cells
-sim = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells_lg"), n = 10^5, evidence = (Cancer > 0.85))
-ColSim <- densCols(x = sim$CCN4, y = sim$NK.cells_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
-
-plot(sim$CCN4, sim$NK.cells_lg, col = ColSim, xlab = "Normalized CCN4", ylab = "Active NK cells metric", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
-simData = data.frame(x = sim$CCN4, y = sim$NK.cells_lg)
+plot(sim$CCN4, sim$NK.cells.active_lg, col = ColSim, xlab = "Normalized CCN4", ylab = "Active NK cells metric", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
+simData = data.frame(x = sim$CCN4, y = sim$NK.cells.active_lg)
 abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
 
 coef(lm(y~x, data=simData))
 
-sim2 = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells_lg"), n = 10^6, evidence = (Cancer < 0.15))
+sim2 = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells.active_lg"), n = 10^6, evidence = (Cancer < 0.15))
 Lab.palette <- colorRampPalette(c("red", "orange", "yellow"), space = "Lab")
-ColSim2 <- densCols(x = sim2$CCN4, y = sim2$NK.cells_lg, nbin = 256, colramp = Lab.palette)
-points(sim2$CCN4, sim2$NK.cells_lg, col = ColSim2)
-simData2 = data.frame(x = sim2$CCN4, y = sim2$NK.cells_lg)
+ColSim2 <- densCols(x = sim2$CCN4, y = sim2$NK.cells.active_lg, nbin = 256, colramp = Lab.palette)
+points(sim2$CCN4, sim2$NK.cells.active_lg, col = ColSim2)
+simData2 = data.frame(x = sim2$CCN4, y = sim2$NK.cells.active_lg)
 abline(coef(lm(y ~ x, data = simData2)), col = "red", lwd = 3)
 abline(coef(lm(y ~ x, data = simData2)), col = "orange", lwd = 2)
 abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
 
 minX <- min(test2$CCN4)
 maxX <- max(test2$CCN4)
-minY <- min(test2$NK.cells_lg)
-maxY <- max(test2$NK.cells_lg)
+minY <- min(test2$NK.cells.active_lg)
+maxY <- max(test2$NK.cells.active_lg)
 
-points( (test2$CCN4[test2$Cancer == 1] - minX)/(maxX - minX), (test2$NK.cells_lg[test2$Cancer == 1] - minY)/(maxY - minY), col = "black")
-points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$NK.cells_lg[test2$Cancer == 0] - minY)/(maxY - minY), pch = 19, col = "black")
+points( (test2$CCN4[test2$Cancer == 1] - minX)/(maxX - minX), (test2$NK.cells.active_lg[test2$Cancer == 1] - minY)/(maxY - minY), col = "black")
+points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$NK.cells.active_lg[test2$Cancer == 0] - minY)/(maxY - minY), pch = 19, col = "black")
 
 ###############################################################
+# BRCA CCN4 vs Resting NK cells
+sim = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells.rest_lg"), n = 10^6, evidence = (Cancer > 0.95))
+ColSim <- densCols(x = sim$CCN4, y = sim$NK.cells.rest_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
-# GEO CCN4 vs CAFs
+plot(sim$CCN4, sim$NK.cells.rest_lg, col = ColSim, xlab = "Normalized CCN4", ylab = "Resting NK cells metric", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
+simData = data.frame(x = sim$CCN4, y = sim$NK.cells.rest_lg)
+abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
+
+coef(lm(y~x, data=simData))
+tmp <- coef(lm(y~x, data=simData))
+text(1,0.15, label = sprintf("Cancer Slope =\n %1.3f", tmp[2]))
+
+sim2 = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells.rest_lg"), n = 10^6, evidence = (Cancer < 0.05))
+Lab.palette <- colorRampPalette(c("red", "orange", "yellow"), space = "Lab")
+ColSim2 <- densCols(x = sim2$CCN4, y = sim2$NK.cells.rest_lg, nbin = 256, colramp = Lab.palette)
+points(sim2$CCN4, sim2$NK.cells.rest_lg, col = ColSim2)
+simData2 = data.frame(x = sim2$CCN4, y = sim2$NK.cells.rest_lg)
+abline(coef(lm(y ~ x, data = simData2)), col = "red", lwd = 3)
+abline(coef(lm(y ~ x, data = simData2)), col = "orange", lwd = 2)
+abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
+
+minX <- min(test2$CCN4)
+maxX <- max(test2$CCN4)
+minY <- min(test2$NK.cells.rest_lg)
+maxY <- max(test2$NK.cells.rest_lg)
+
+points( (test2$CCN4[test2$Cancer == 1] - minX)/(maxX - minX), (test2$NK.cells.rest_lg[test2$Cancer == 1] - minY)/(maxY - minY), col = "black")
+points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$NK.cells.rest_lg[test2$Cancer == 0] - minY)/(maxY - minY), pch = 19, col = "black")
+
+###############################################################
+# BRCA CCN4 vs CAFs
 sim = cpdist(fBRCABN, nodes = c("CCN4", "CAF_lg"), n = 10^5, evidence = (Cancer > 0.85))
 ColSim <- densCols(x = sim$CCN4, y = sim$CAF_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
@@ -221,7 +250,6 @@ points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$CAF_lg[test
 
 
 ###############################################################
-
 # BRCA CCN4 vs B cells
 sim = cpdist(fBRCABN, nodes = c("CCN4", "B.cells.naive_lg"), n = 10^5, evidence = (Cancer > 0.85))
 ColSim <- densCols(x = sim$CCN4, y = sim$B.cells.naive_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
@@ -251,7 +279,6 @@ points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$B.cells.nai
 
 
 ###############################################################
-
 # BRCA CCN4 vs Macrophages
 sim = cpdist(fBRCABN, nodes = c("CCN4", "Macrophages_sc_lg"), n = 10^5, evidence = (Cancer > 0.85))
 ColSim <- densCols(x = sim$CCN4, y = sim$Macrophages_sc_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
