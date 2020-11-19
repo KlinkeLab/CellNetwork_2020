@@ -109,7 +109,7 @@ par(mfrow = c(1, 2), mar = c(5, 4, 4, 2) + 0.1)
 
 #Comparison plots between BN model and data
 # BRCA CCN4 vs CD8 T cells
-sim = cpdist(fBRCABN, nodes = c("CCN4", "T.cells.CD8_lg"), n = 10^5, evidence = (Cancer > 0.85))
+sim = cpdist(fBRCABN, nodes = c("CCN4", "T.cells.CD8_lg"), n = 10^5, evidence = (Cancer > 0.95))
 ColSim <- densCols(x = sim$CCN4, y = sim$T.cells.CD8, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
 plot(sim$CCN4, sim$T.cells.CD8, col = ColSim, xlab = "Normalized CCN4 (log2)", ylab = "CD8 T cells metric", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
@@ -118,7 +118,7 @@ abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
 
 coef(lm(y~x, data=simData))
 
-sim2 = cpdist(fBRCABN, nodes = c("CCN4", "T.cells.CD8_lg"), n = 10^6, evidence = (Cancer < 0.15))
+sim2 = cpdist(fBRCABN, nodes = c("CCN4", "T.cells.CD8_lg"), n = 10^6, evidence = (Cancer < 0.05))
 Lab.palette <- colorRampPalette(c("red", "orange", "yellow"), space = "Lab")
 ColSim2 <- densCols(x = sim2$CCN4, y = sim2$T.cells.CD8, nbin = 256, colramp = Lab.palette)
 points(sim2$CCN4, sim2$T.cells.CD8, col = ColSim2)
@@ -138,7 +138,7 @@ points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$T.cells.CD8
 
 ########################
 # BRCA CCN4 vs CD4 T cells
-sim = cpdist(fBRCABN, nodes = c("CCN4", "CD4Tcell_sc_lg"), n = 10^4, evidence = (Cancer > 0.85))
+sim = cpdist(fBRCABN, nodes = c("CCN4", "CD4Tcell_sc_lg"), n = 10^4, evidence = (Cancer > 0.95))
 ColSim <- densCols(x = sim$CCN4, y = sim$CD4Tcell_sc_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
 plot(sim$CCN4, sim$CD4Tcell_sc_lg, col = ColSim, xlab = "Normalized CCN4", ylab = "CD4 T cells metric", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
@@ -146,7 +146,7 @@ simData = data.frame(x = sim$CCN4, y = sim$CD4Tcell_sc_lg)
 
 coef(lm(y~x, data=simData))
 
-sim2 = cpdist(fBRCABN, nodes = c("CCN4", "CD4Tcell_sc_lg"), n = 10^6, evidence = (Cancer < 0.15))
+sim2 = cpdist(fBRCABN, nodes = c("CCN4", "CD4Tcell_sc_lg"), n = 10^6, evidence = (Cancer < 0.05))
 Lab.palette <- colorRampPalette(c("red", "orange", "yellow"), space = "Lab")
 ColSim2 <- densCols(x = sim2$CCN4, y = sim2$CD4Tcell_sc_lg, nbin = 256, colramp = Lab.palette)
 points(sim2$CCN4, sim2$CD4Tcell_sc_lg, col = ColSim2)
@@ -165,7 +165,7 @@ points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$CD4Tcell_sc
 
 #################
 # BRCA CCN4 vs active NK cells
-sim = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells.active_lg"), n = 10^5, evidence = (Cancer > 0.85))
+sim = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells.active_lg"), n = 10^5, evidence = (Cancer > 0.95))
 ColSim <- densCols(x = sim$CCN4, y = sim$NK.cells.active_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
 plot(sim$CCN4, sim$NK.cells.active_lg, col = ColSim, xlab = "Normalized CCN4", ylab = "Active NK cells metric", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
@@ -174,7 +174,7 @@ abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
 
 coef(lm(y~x, data=simData))
 
-sim2 = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells.active_lg"), n = 10^6, evidence = (Cancer < 0.15))
+sim2 = cpdist(fBRCABN, nodes = c("CCN4", "NK.cells.active_lg"), n = 10^6, evidence = (Cancer < 0.05))
 Lab.palette <- colorRampPalette(c("red", "orange", "yellow"), space = "Lab")
 ColSim2 <- densCols(x = sim2$CCN4, y = sim2$NK.cells.active_lg, nbin = 256, colramp = Lab.palette)
 points(sim2$CCN4, sim2$NK.cells.active_lg, col = ColSim2)
@@ -223,7 +223,7 @@ points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$NK.cells.re
 
 ###############################################################
 # BRCA CCN4 vs CAFs
-sim = cpdist(fBRCABN, nodes = c("CCN4", "CAF_lg"), n = 10^5, evidence = (Cancer > 0.85))
+sim = cpdist(fBRCABN, nodes = c("CCN4", "CAF_lg"), n = 10^5, evidence = (Cancer > 0.95))
 ColSim <- densCols(x = sim$CCN4, y = sim$CAF_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
 plot(sim$CCN4, sim$CAF_lg, col = ColSim, xlab = "Normalized CCN4", ylab = "Cancer Associated Fibroblasts", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
@@ -232,7 +232,7 @@ abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
 
 coef(lm(y~x, data=simData))
 
-sim2 = cpdist(fBRCABN, nodes = c("CCN4", "CAF_lg"), n = 10^6, evidence = (Cancer < 0.15))
+sim2 = cpdist(fBRCABN, nodes = c("CCN4", "CAF_lg"), n = 10^6, evidence = (Cancer < 0.05))
 Lab.palette <- colorRampPalette(c("red", "orange", "yellow"), space = "Lab")
 ColSim2 <- densCols(x = sim2$CCN4, y = sim2$CAF_lg, nbin = 256, colramp = Lab.palette)
 points(sim2$CCN4, sim2$CAF_lg, col = ColSim2)
@@ -252,7 +252,7 @@ points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$CAF_lg[test
 
 ###############################################################
 # BRCA CCN4 vs B cells
-sim = cpdist(fBRCABN, nodes = c("CCN4", "B.cells.naive_lg"), n = 10^5, evidence = (Cancer > 0.85))
+sim = cpdist(fBRCABN, nodes = c("CCN4", "B.cells.naive_lg"), n = 10^5, evidence = (Cancer > 0.95))
 ColSim <- densCols(x = sim$CCN4, y = sim$B.cells.naive_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
 plot(sim$CCN4, sim$B.cells.naive_lg, col = ColSim, xlab = "Normalized CCN4", ylab = "B cells", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
@@ -261,7 +261,7 @@ abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
 
 coef(lm(y~x, data=simData))
 
-sim2 = cpdist(fBRCABN, nodes = c("CCN4", "B.cells.naive_lg"), n = 10^6, evidence = (Cancer < 0.15))
+sim2 = cpdist(fBRCABN, nodes = c("CCN4", "B.cells.naive_lg"), n = 10^6, evidence = (Cancer < 0.05))
 Lab.palette <- colorRampPalette(c("red", "orange", "yellow"), space = "Lab")
 ColSim2 <- densCols(x = sim2$CCN4, y = sim2$B.cells.naive_lg, nbin = 256, colramp = Lab.palette)
 points(sim2$CCN4, sim2$B.cells.naive_lg, col = ColSim2)
@@ -281,7 +281,7 @@ points( (test2$CCN4[test2$Cancer == 0] - minX)/(maxX - minX), (test2$B.cells.nai
 
 ###############################################################
 # BRCA CCN4 vs Macrophages
-sim = cpdist(fBRCABN, nodes = c("CCN4", "Macrophages_sc_lg"), n = 10^5, evidence = (Cancer > 0.85))
+sim = cpdist(fBRCABN, nodes = c("CCN4", "Macrophages_sc_lg"), n = 10^5, evidence = (Cancer > 0.95))
 ColSim <- densCols(x = sim$CCN4, y = sim$Macrophages_sc_lg, nbin = 256, colramp = colorRampPalette(blues9[-(1:2)]))
 
 plot(sim$CCN4, sim$Macrophages_sc_lg, col = ColSim, xlab = "Normalized CCN4", ylab = "Macrophages", xlim = c(0, 1.2), ylim = c(0.0, 1.0))
@@ -290,7 +290,7 @@ abline(coef(lm(y ~ x, data = simData)), col = "blue", lwd = 2)
 
 coef(lm(y~x, data=simData))
 
-sim2 = cpdist(fBRCABN, nodes = c("CCN4", "Macrophages_sc_lg"), n = 10^6, evidence = (Cancer < 0.15))
+sim2 = cpdist(fBRCABN, nodes = c("CCN4", "Macrophages_sc_lg"), n = 10^6, evidence = (Cancer < 0.05))
 Lab.palette <- colorRampPalette(c("red", "orange", "yellow"), space = "Lab")
 ColSim2 <- densCols(x = sim2$CCN4, y = sim2$Macrophages_sc_lg, nbin = 256, colramp = Lab.palette)
 points(sim2$CCN4, sim2$Macrophages_sc_lg, col = ColSim2)
