@@ -67,16 +67,18 @@ CCN4black = data.frame(from = c("Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_l
                               "T.cells.CD8_lg", "B.cells.naive_lg", "CD4Tcell_sc_lg", "proliferation", "Epithelial", "Mesenchymal", 
                               "pM0", "pM1", "pM2"))
 
-CCN4white = data.frame(from = c("CCN4", "pM0", "pM0", "Mesenchymal", "Cancer", 
-                                "NK.cells.active_lg", "B.cells.naive_lg", "Cancer", "Macrophages_sc_lg", "pM1", 
-                                "Macrophages_sc_lg", "CAF_lg", "Cancer", "Cancer", "Endothelial.cells_lg", 
-                                "B.cells.naive_lg", "Cancer", "pM1", "Cancer", "NK.cells.rest_lg", 
-                                "Cancer", "Cancer", "CCN4", "Cancer", "CCN4"),
-                          to = c("Mesenchymal", "pM1", "pM2", "CAF_lg", "CCN4", 
-                                 "NK.cells.rest_lg", "T.cells.CD8_lg", "Epithelial", "CD4Tcell_sc_lg", "T.cells.CD8_lg", 
-                                 "T.cells.CD8_lg", "T.cells.CD8_lg", "proliferation", "Endothelial.cells_lg", "CD4Tcell_sc_lg", 
-                                 "CD4Tcell_sc_lg", "pM2", "CAF_lg", "Mesenchymal", "T.cells.CD8_lg", 
-                                 "pM1", "B.cells.naive_lg", "Macrophages_sc_lg", "NK.cells.rest_lg", "NK.cells.active_lg"))
+CCN4white = data.frame(from = c("CCN4", "Mesenchymal", "Cancer", "NK.cells.active_lg", "B.cells.naive_lg", 
+                                "Cancer", "Cancer", "Macrophages_sc_lg", "pM1", "Macrophages_sc_lg", 
+                                "Endothelial.cells_lg", "CAF_lg", "B.cells.naive_lg", "Cancer", "Cancer", 
+                                "Cancer", "pM2", "pM1", "Cancer", "Cancer", 
+                                "Mesenchymal", "B.cells.naive_lg", "pM1", "CCN4", "Epithelial", 
+                                "CCN4", "pM0"),
+                          to = c("Mesenchymal", "CAF_lg", "CCN4", "NK.cells.rest_lg", "T.cells.CD8_lg", 
+                                 "Epithelial", "proliferation", "CD4Tcell_sc_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", 
+                                 "CD4Tcell_sc_lg", "T.cells.CD8_lg", "CD4Tcell_sc_lg", "Endothelial.cells_lg", "pM2", 
+                                 "Mesenchymal", "proliferation", "CAF_lg", "pM1", "pM0", 
+                                 "Endothelial.cells_lg", "pM1", "Endothelial.cells_lg", "Macrophages_sc_lg", "CD4Tcell_sc_lg", 
+                                 "NK.cells.active_lg", "pM1"))
 
 nboot = 10000 
 arstr <- boot.strength(dtest2, R = nboot, algorithm = "mmhc", cluster = cl, algorithm.args = list(whitelist = CCN4white, blacklist = CCN4black))
@@ -100,6 +102,20 @@ strength.plot(an.BRCA, BRCA_str, shape = "ellipse", highlight = list(arcs = HLar
 #Need to include whether the particular edge included in the network has a negative or a positive correlation
 # While this is correct normally, ultimately you should look at the sign of the appropriate term in the linear model (fBRCABN)
 write.csv(cbind(BRCA_str, CorSign), paste(Outfile, "_mmhc_Hybrid_Merge.csv", sep = ''), row.names=FALSE)
+
+#### Calculate L1 loss for each node
+residBN <- as.data.frame(residuals(fBRCABN))
+L1_BN <- colSums(abs(residBN)/nrow(dtest2))
+npar <- sapply(nodes(an.BRCA), function(x) length(parents(fBRCABN,x)))
+
+# Calculate loss for empty graph
+ng <- empty.graph(nodes = nodes(an.BRCA))
+fnBN <- bn.fit(ng, data = dtest2)
+
+residnBN <- as.data.frame(residuals(fnBN))
+L1_nBN <- colSums(abs(residnBN)/nrow(dtest2))
+
+write.csv(data.frame(node = names(L1_BN), L1_BN = L1_BN, No_Parents = npar, L1_nBN = L1_nBN), paste(Outfile, "_L1_mmhc.csv", sep = ''), row.names=FALSE)
 
 # stop the cluster when we are done
 stopCluster(cl)
