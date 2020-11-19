@@ -1,6 +1,7 @@
 library(colorspace)
 library(stats) 
 library(bnlearn)
+library(parallel)
 #library(lattice) 
 #library(Rgraphviz)
 
