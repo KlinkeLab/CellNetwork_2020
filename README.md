@@ -4,6 +4,7 @@ This repository supplies the code developed in the study of D.J. Klinke, A. Fern
 
 ## **Requirements**
 
+* Computer Operating System: Windows 10 or MAC OS ...
 * R version 3.6.3.
 * R libraries: SummarizedExperiment, TCGAbiolinks, colorspace, MASS, bnlearn, BiocManager, Rgraphviz, parallel, stats, lattice
 
