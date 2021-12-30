@@ -24,8 +24,8 @@ To reproduce the results, download the relevant script and data and load the cor
 
 # **Instructions**
 ## **Installation Guide**
-* The latest version of R can be downloaded at https://www.r-project.org/ 
-* The latest version of RStudio can be downloaded at https://www.rstudio.com/products/rstudio/download/ 
+* The latest version of R can be downloaded at https://www.r-project.org/ and should download in under one minute
+* The latest version of RStudio can be downloaded at https://www.rstudio.com/products/rstudio/download/ and should install in under one minute
 * Download the files from the repository and extract the files from the zip folder to your desired working folder
 * Open the six provided R scripts and change the address in the setwd() command on each file to reflect the folder you saved the files to
 * Ensure all R Libraries listed in the Software Requirements are installed
