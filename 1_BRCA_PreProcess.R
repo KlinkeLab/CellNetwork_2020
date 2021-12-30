@@ -8,7 +8,7 @@ rm(list = ls())
 query.seq <- GDCquery(project = "TCGA-BRCA", 
                       data.category = "Transcriptome Profiling", 
                       data.type = "Gene Expression Quantification",
-                      sample.type = c("Primary solid Tumor","Solid Tissue Normal"),
+                      sample.type = c("Primary Tumor","Solid Tissue Normal"),
                       workflow.type = "HTSeq - Counts")
 
 GDCdownload(query.seq, files.per.chunk = 4)
