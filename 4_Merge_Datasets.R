@@ -2,7 +2,7 @@
 # Create a "Cancer" column with 1 if the sample was cancer and 0 if normal
 # create pM0, pM1, and pM2 metrics
 # log transform some of the metrics - add in a little bit of noise at the detection threshold, chisq distribution with df = 1
-setwd("~/Documents/Publications/BayesNetwork2/R")
+setwd("E:/Lab Files/Bayes Network/CellNetwork_2020-master")
 rm(list = ls())
 
 # Read in Proliferation state metric
@@ -83,7 +83,7 @@ plot(density(log2(DC_scRNA$T.cells.CD4 + 0.0008), adj = 0.5))
 DC_TOT <- merge(DC_TOT, DC_scRNA, by.x = "ID", by.y = "Mixture")
 
 file <- "BRCA_digitalcytometry_tot_noise"
-write.csv(DC_TOT, file = paste("~/Documents/Publications/BayesNetwork2/R/", file, ".csv", sep = ""), row.names = TRUE)
+write.csv(DC_TOT, file = paste("E:/Lab Files/Bayes Network/CellNetwork_2020-master/", file, ".csv", sep = ""), row.names = TRUE)
 
 
 

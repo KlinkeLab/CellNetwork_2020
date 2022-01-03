@@ -1,7 +1,7 @@
-install.packages("bnlearn")
-install.packages("BiocManager")
-install.packages("MASS")
-BiocManager::install("Rgraphviz") 
+# install.packages("bnlearn")
+# install.packages("BiocManager")
+# install.packages("MASS")
+# BiocManager::install("Rgraphviz") 
 
 library(parallel)
 library(colorspace)
@@ -9,9 +9,9 @@ library(stats)
 library(bnlearn)
 library(lattice) 
 library(Rgraphviz)
-
 library(MASS)
-setwd("~/Documents/Publications/BayesNetwork2/R")
+
+setwd("E:/Lab Files/Bayes Network/CellNetwork_2020-master")
 rm(list = ls())
 
 # Making compute cluster
@@ -23,8 +23,8 @@ test <- read.csv(paste("./", fileName, ".csv", sep = ""), head = TRUE)
 
 file <- "BRCA_hybrid_CIBERSORT"
 
-DM <- c("Cancer", "CD4Tcell_sc_lg", "Neutrophils_lg", "Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
-        "B.cells.naive_lg", "proliferation", "Epithelial", "Mesenchymal", 
+DM <- c("Cancer", "CD4Tcell_sc_lg", "Neutrophils_lg", "Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.activated",
+        "NK.cells.resting", "Macrophages_sc_lg", "B.cells.naive_lg", "proliferation", "Epithelial", "Mesenchymal",
         "CCN4", "pM0", "pM1", "pM2")
 
 test2 <- test[, DM]
@@ -76,10 +76,10 @@ dev.off()
 # Only arcs into CD4 T cells as number of zeros is high
 # Only arcs into Neutrophils as number of zeros is high
 
-CCN4black = data.frame(from = c("Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
+CCN4black = data.frame(from = c("Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.activated", "NK.cells.resting", "Macrophages_sc_lg", 
                                 "CD4Tcell_sc_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
                                 "CCN4", "pM0", "pM1", "pM2", 
-                                "Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
+                                "Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_lg", "NK.cells.activated", "NK.cells.resting", "Macrophages_sc_lg", 
                                 "CD4Tcell_sc_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
                                 "pM0", "pM1", "pM2", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg",
                                 "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg", "T.cells.CD8_lg",
@@ -94,11 +94,11 @@ CCN4black = data.frame(from = c("Endothelial.cells_lg", "CAF_lg", "T.cells.CD8_l
                               "Cancer", "Cancer", "Cancer", "Cancer", "Cancer",  
                               "CCN4", "CCN4", "CCN4", "CCN4", "CCN4", "CCN4", 
                               "CCN4", "CCN4", "CCN4", "CCN4", "CCN4", 
-                              "CCN4", "CCN4", "CCN4", "CCN4", "Endothelial.cells_lg", "CAF_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
+                              "CCN4", "CCN4", "CCN4", "CCN4", "Endothelial.cells_lg", "CAF_lg", "NK.cells.activated", "NK.cells.resting", "Macrophages_sc_lg", 
                               "CD4Tcell_sc_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
-                              "pM0", "pM1", "pM2", "Endothelial.cells_lg", "CAF_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
+                              "pM0", "pM1", "pM2", "Endothelial.cells_lg", "CAF_lg", "NK.cells.activated", "NK.cells.resting", "Macrophages_sc_lg", 
                               "T.cells.CD8_lg", "B.cells.naive_lg", "Neutrophils_lg", "proliferation", "Epithelial", "Mesenchymal", 
-                              "pM0", "pM1", "pM2", "Endothelial.cells_lg", "CAF_lg", "NK.cells.active_lg", "NK.cells.rest_lg", "Macrophages_sc_lg", 
+                              "pM0", "pM1", "pM2", "Endothelial.cells_lg", "CAF_lg", "NK.cells.activated", "NK.cells.resting", "Macrophages_sc_lg", 
                               "T.cells.CD8_lg", "B.cells.naive_lg", "CD4Tcell_sc_lg", "proliferation", "Epithelial", "Mesenchymal", 
                               "pM0", "pM1", "pM2"))
 

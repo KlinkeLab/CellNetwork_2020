@@ -1,5 +1,5 @@
 # Calculate values for Epithelial and Mesenchymal state metrics
-setwd("~/Documents/Publications/BayesNetwork2/R")
+setwd("E:/Lab Files/Bayes Network/CellNetwork_2020-master")
 rm(list = ls())
 
 load(file = "./BRCA_TPM_HK.Rda")
@@ -10,6 +10,8 @@ EMTsig <- read.table(file = "./EMT_BRCA.csv", sep = ",", head=TRUE, colClasses =
 # Changing the following gene symbols in the .csv file may be needed -> SEPP1:SELENOP, C1orf106:INAVA
 
 Esig <- EMTsig[EMTsig$State == "E",]
+
+colnames(Esig) <- c('GENE_SYMBOL', 'Ki_log2_TPM', 'State' )
 
 RNAseq.E <- TCGA.RNAseq.HK[match(Esig$GENE_SYMBOL, row.names(TCGA.RNAseq.HK)), ]
 
@@ -30,6 +32,7 @@ for (i in 1:dim(RNAseq.E)[2])
 # Changing the following gene symbols in the .csv file may be needed -> C7orf10:SUGCT, LEPRE1:P3H1, LHFP:LHFPL6, WISP1:CCN4
 
 Msig <- EMTsig[EMTsig$State == "M",]
+colnames(Msig) <- c('GENE_SYMBOL', 'Ki_log2_TPM', 'State' )
 
 RNAseq.M <- TCGA.RNAseq.HK[match(Msig$GENE_SYMBOL, row.names(TCGA.RNAseq.HK)), ]
 
@@ -48,5 +51,5 @@ for (i in 1:dim(RNAseq.M)[2])
 
 #Combine Epithelial and Mesenchymal genes for each sample
 # If you changed WISP1 to CCN4 in the .csv, "WISP1" to "CCN4" in line 51 as well.
-BrCa_State <- data.frame(TCGAName = colnames(RNAseq.M), Epithelial = EBrCa, Mesenchymal = MBrCa, CCN4 = log2(as.numeric(RNAseq.M["WISP1",]) + 0.001))
+BrCa_State <- data.frame(TCGAName = colnames(RNAseq.M), Epithelial = EBrCa, Mesenchymal = MBrCa, CCN4 = log2(as.numeric(RNAseq.M["CCN4",]) + 0.001))
 write.csv(BrCa_State, file = "./BRCA-EMT-SM.csv")

@@ -2,7 +2,7 @@
 library(SummarizedExperiment)
 library(TCGAbiolinks)
 
-setwd("~/Documents/Publications/BayesNetwork2/R")
+setwd("E:/Lab Files/Bayes Network/CellNetwork_2020-master")
 rm(list = ls())
 
 query.seq <- GDCquery(project = "TCGA-BRCA", 
