@@ -24,7 +24,7 @@ For more information about data used in this study please refer to [https://port
 * The latest version of RStudio can be downloaded at https://www.rstudio.com/products/rstudio/download/ and should install in under one minute
 * Download the files from the repository and extract the files from the zip folder to your desired working folder. The extraction process should be near instantaneous.
 * Open the six provided R scripts and change the address in the setwd() command on each file to reflect the folder you saved the files to. The scripts should open instanteously.
-* Ensure all R Libraries listed in the Software Requirements are installed. Code for the installation of all packages is provided below and should run in under 30 seconds.
+* Ensure all R Libraries listed in the Software Requirements are installed. Code for the installation of all packages is provided below.
 
 ```
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -41,28 +41,29 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 Running the scripts in the order provided will generate all relevant figures and data tables for the given portion of the study. Below you'll find a list of each script, it's run time, the files added to the working directory, and the number of figures generated.
 
 * 1_BRCA_PreProcess.R
-  * Run time:  minutes
+  * Run time:  14.5 minutes
   * Files created: GDCdata file folder, BRCA_RNAseq_HK.txt, BRCA_TPM_HK.Rda, brca-RNAseq-Counts.rda
   * Figures generated: 1
 
 * 2_BRCA-EMT-SM.R
-  * Run time:  minutes
-  * Files created: 
-  * Figures generated: 
+  * Run time:  < 10 seconds
+  * Files created: BRCA_EMT_SM.csv
+  * Figures generated: 2
   
 * 3_BRCA-Proliferation-SM.R
-  * Run time:  minutes
-  * Files created: 
-  * Figures generated:
+  * Run time:  < 10 seconds
+  * Files created: BRCA_proliferation_Zscore.csv
+  * Figures generated: 1
 
 * 4_Merge_Datasets.R
-  * Run time:  minutes
-  * Files created: 
-  * Figures generated:
+  * Run time:  < 10 seconds
+  * Files created: BRCA_digitalcytometry_tot_noise.csv
+  * Figures generated: 7
 
 * 5_BRCA_BN_SeedEdges_Interval.R
   * Run time:  minutes
-  * Files created: 
+  * Files created: BRCA_HYBRID_CIBERSORT Bootstrap 10000_[insert algorithm].csv algorithms: gs, rsmax2, mmhc, tabu, hc, pc_stable, iamb_fdr, si_hiton_pc, mmpc, iamb
+                   BRCA-Hybrid-CorrelationStructure.pdf, BRCA-HybridVariableDist.pdf, BRCA_hybrid_CIBERSORT_Seed_Summary_Int.csv 
   * Figures generated:
 
 * 6_BRCA_BN_EnsembleDAG.R
