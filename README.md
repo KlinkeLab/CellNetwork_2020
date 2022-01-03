@@ -42,34 +42,48 @@ Running the scripts in the order provided will generate all relevant figures and
 
 * 1_BRCA_PreProcess.R
   * Run time:  14.5 minutes
-  * Files created: GDCdata file folder, BRCA_RNAseq_HK.txt, BRCA_TPM_HK.Rda, brca-RNAseq-Counts.rda
+  * Files created: 
+    * GDCdata file folder
+    * BRCA_RNAseq_HK.txt
+    * BRCA_TPM_HK.Rda
+    * brca-RNAseq-Counts.rda
   * Figures generated: 1
 
 * 2_BRCA-EMT-SM.R
   * Run time:  < 10 seconds
-  * Files created: BRCA_EMT_SM.csv
+  * Files created: 
+     * BRCA_EMT_SM.csv
   * Figures generated: 2
   
 * 3_BRCA-Proliferation-SM.R
   * Run time:  < 10 seconds
-  * Files created: BRCA_proliferation_Zscore.csv
+  * Files created: 
+    * BRCA_proliferation_Zscore.csv
   * Figures generated: 1
 
 * 4_Merge_Datasets.R
   * Run time:  < 10 seconds
-  * Files created: BRCA_digitalcytometry_tot_noise.csv
+  * Files created: 
+    * BRCA_digitalcytometry_tot_noise.csv
   * Figures generated: 7
 
 * 5_BRCA_BN_SeedEdges_Interval.R
-  * Run time:  minutes
-  * Files created: BRCA_HYBRID_CIBERSORT Bootstrap 10000_[insert algorithm].csv algorithms: gs, rsmax2, mmhc, tabu, hc, pc_stable, iamb_fdr, si_hiton_pc, mmpc, iamb
-                   BRCA-Hybrid-CorrelationStructure.pdf, BRCA-HybridVariableDist.pdf, BRCA_hybrid_CIBERSORT_Seed_Summary_Int.csv 
-  * Figures generated:
+  * Run time:  23 minutes
+  * Files created: 
+    * BRCA_HYBRID_CIBERSORT Bootstrap 10000_**[insert algorithm]**.csv 
+        * algorithms: gs, rsmax2, mmhc, tabu, hc, pc_stable, iamb_fdr, si_hiton_pc, mmpc, iamb
+    * BRCA-Hybrid-CorrelationStructure.pdf
+    * BRCA-HybridVariableDist.pdf
+    * BRCA_hybrid_CIBERSORT_Seed_Summary_Int.csv 
+  * Figures generated: 1
 
 * 6_BRCA_BN_EnsembleDAG.R
-  * Run time:  minutes
+  * Run time: 2 minutes
   * Files created: 
-  * Figures generated:
+    * BRCA_CIBERSORT_NKsubset_L1_mmhc.csv
+    * BRCA_CIBERSORT_NKsubset_mmhc_Hybrid_Merge.csv
+    * BRCA_ModelvsData-hybrid
+  * Figures generated: 1
  
 # **General notes**
 
