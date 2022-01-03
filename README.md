@@ -6,7 +6,7 @@ This repository supplies the code developed in the study of D.J. Klinke, A. Fern
 ## **Hardware Recommendations:**
 The code contained in this repository requires only a standard computer to run, however, the amount of RAM required will be defined by the desires of the use. For low level performance, 2 GB of RAM should suffice. For optimal performance, a minimum of 16 GB of RAM and 8 Cores with 2.9 GHz/core is recommended. These specifications match the laboratory computer specifications that the code was tested on.
 
-The runtimes below were generated with a computer above recommended specs (32 GB of RAM and 8 cores at 3.59 GHz/core). The additional processing power did not appear to significantly affect runtimes compared to recommended specs. 
+The runtimes below were generated with a computer with the optimal specifications (16 GB RAM and 8 Cores @ 2.9 GHz/core) and an internet download speed of 791 Mbps.
 ## **Software Recommendations:**
 * Computer Operating System: Tested on Windows 10, version 21H2
 * The code was originally written using R version 3.6.3. along with a corresponding version of RStudio. Most recent testing done using R version 4.1.0 and RStudio version 1.4.1717
@@ -41,7 +41,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 Running the scripts in the order provided will generate all relevant figures and data tables for the given portion of the study. Below you'll find a list of each script, it's run time, the files added to the working directory, and the number of figures generated.
 
 * 1_BRCA_PreProcess.R
-  * Run time: 12 minutes
+  * Run time:  minutes
   * Files created: GDCdata file folder, BRCA_RNAseq_HK.txt, BRCA_TPM_HK.Rda, brca-RNAseq-Counts.rda
   * Figures generated: 1
 
