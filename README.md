@@ -1,6 +1,6 @@
 # **Data-driven learning how oncogenic gene expression locally alters heterocellular networks**
 
-This repository supplies the code developed in the study of D.J. Klinke, A. Fernandez, W. Deng, H. Latifizadeh, and A.C. Pirkey **_"Data-driven learning how oncogenic gene expression locally alters heterocellular networks"_**. The corresponding pre-print can be found on bioRxiv ( doi: https://doi.org/10.1101/2020.05.04.077107). It can be used to reproduce the results of the study and investigate the methodology to be used for other datasets.
+This repository supplies the code developed in the study of D.J. Klinke, A. Fernandez, W. Deng, H. Latifizadeh, and A.C. Pirkey **_"Data-driven learning how oncogenic gene expression locally alters heterocellular networks"_**. The corresponding publication can be found in Nature Communications ( Apr 13;13(1):1986. doi: 10.1038/s41467-022-29636-3; PMID: 35418177; PMCID: PMC9007999). It can be used to reproduce the results of the study and investigate the methodology to be used for other datasets.
 
 # **System Requirements**
 ## **Hardware Recommendations:**
@@ -91,4 +91,4 @@ The code provided in this repository reproduces the main results of the study of
 
 # **Citation**
 
-Klinke, D.J., Fernandez, A., Deng, W., Latifizadeh, H. & Pirkey, A.C.,  **_"Data-driven learning how oncogenic gene expression locally alters heterocellular networks."_** bioRxiv (2020). [https://doi.org/10.1101/2020.05.04.077107]
+Klinke, D.J., Fernandez, A., Deng, W., Latifizadeh, H. & Pirkey, A.C.,  **_"Data-driven learning how oncogenic gene expression locally alters heterocellular networks."_** Nature Communications (2022). Apr 13;13(1):1986. doi: 10.1038/s41467-022-29636-3. PMID: 35418177; PMCID: PMC9007999.
